@@ -4,7 +4,7 @@ const server = express();
 
 server.use(express.json());
 
-const projects = [];
+var projects = [];
 
 var TotalRequests = 0;
 
@@ -24,10 +24,14 @@ function getProject(id) {
     return projects.find(n => n.id === id);
 }
 
-function checkProjectExists(req, res, next) {
-    const { id } = req.body;
+function removeProject(id) {
+    projects = projects.filter(p => p.id !== id);
+}
 
-    if (getProject(id) === {}) {
+function checkProjectExists(req, res, next) {
+    const { id } = req.params;
+
+    if (!getProject(id)) {
         return res.status(400).json({ message: 'Project does not exists'});
     }
 
@@ -35,9 +39,9 @@ function checkProjectExists(req, res, next) {
 }
 
 function checkProjectNotExists(req, res, next) {
-    const { id } = req.params;
+    const { id } = req.body;
 
-    if (getProject(id) != undefined) {
+    if (getProject(id)) {
         return res.status(400).json({ message: 'Project already exists'});
     }
 
@@ -46,6 +50,8 @@ function checkProjectNotExists(req, res, next) {
 
 server.post('/projects', checkProjectNotExists, (req, res) => {
     const project = req.body;
+
+    project.tasks = [];
 
     projects.push(project);
 
@@ -64,6 +70,25 @@ server.put('/projects/:id', checkProjectExists, (req, res) => {
     project.title = title;
 
     return res.json(project);
+});
+
+server.delete('/projects/:id', checkProjectExists, (req, res) => {
+    const { id } = req.params;
+
+    removeProject(id);
+
+    return res.send();
+});
+
+server.post('/projects/:id/tasks', checkProjectExists, (req, res) => {
+    const { id } = req.params;
+    const { title: task } = req.body;
+
+    const project = getProject(id);
+
+    project.tasks.push(task);
+
+    res.json(project);
 });
 
 server.listen(4000);
