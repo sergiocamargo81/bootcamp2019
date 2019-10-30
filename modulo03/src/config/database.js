@@ -1,6 +1,8 @@
+import host from './host';
+
 module.exports = {
   dialect: 'postgres',
-  host: 'localhost',
+  host,
   username: 'postgres',
   password: 'docker',
   database: 'gobarber',
