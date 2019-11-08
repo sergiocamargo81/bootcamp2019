@@ -9,5 +9,20 @@
 }
 
 .post-header {
+  display: flex;
+  margin-bottom: 10px;
+}
 
+.post-header > .avatar {
+  border-radius: 50%;
+}
+
+.post-header > .info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.post-header > .info > .date {
+  color: #9A9A9A
 }
