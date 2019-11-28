@@ -1,10 +1,14 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {Container} from './styles';
 
 export default function Home() {
-  return <Container />;
+  return (
+    <Container>
+      <Text style={{color: '#FFF'}}>Home</Text>
+    </Container>
+  );
 }
 
 Home.navigationOptions = {
