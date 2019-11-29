@@ -1,12 +1,24 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, Text} from 'react-native';
 
-import {Container} from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
 import {formatPrice} from '../../util/format';
 
-class Home extends React.Component {
+import {
+  Container,
+  Product,
+  ProductImage,
+  ProductTitle,
+  ProductPrice,
+  AddButton,
+  ProductAmount,
+  ProductAmountText,
+  AddButtonText,
+} from './styles';
+
+class Home extends Component {
   state = {
     products: [],
   };
@@ -20,14 +32,41 @@ class Home extends React.Component {
     }));
 
     this.setState({products: data});
-
-    console.tron.log(this.state);
   }
 
+  handleAddProduct = id => {};
+
+  renderProduct = ({item}) => {
+    // console.tron.log(item);
+
+    return (
+      <Product key={item.id}>
+        <ProductImage source={{uri: item.image}} />
+        <ProductTitle>{item.title}</ProductTitle>
+        <ProductPrice>{item.priceFormatted}</ProductPrice>
+        <AddButton onPress={() => this.handleAddProduct(item.id)}>
+          <ProductAmount>
+            <Icon name="add-shopping-cart" color="#FFF" size={20} />
+            <ProductAmountText>0</ProductAmountText>
+          </ProductAmount>
+          <AddButtonText>Adicionar ao carrinho</AddButtonText>
+        </AddButton>
+      </Product>
+    );
+  };
+
   render() {
+    const {products} = this.state;
+
     return (
       <Container>
-        <Text style={{color: '#FFF'}}>Home</Text>
+        <FlatList
+          vertical
+          data={products}
+          extraData={this.props}
+          keyExtractor={item => String(item.id)}
+          renderItem={this.renderProduct}
+        />
       </Container>
     );
   }

@@ -32,16 +32,16 @@ export const BasketContainer = styled.TouchableOpacity`
 `;
 
 export const ItemCount = styled.Text`
-  position: absolute;
-  text-align: center;
-  top: -8px;
-  right: -8px;
-  min-width: 18px;
-  min-height: 18px;
   background: ${colors.primary};
   color: #fff;
+  border-radius: 9px;
+  min-width: 18px;
+  min-height: 18px;
   font-size: 12px;
   padding: 2px;
-  border-radius: 9px;
+  text-align: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
   overflow: hidden;
 `;

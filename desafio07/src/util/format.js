@@ -3,6 +3,4 @@ import 'numeral/locales/pt-br';
 
 numeral.locale('pt-br');
 
-export const formatPrice = value => {
-  numeral(value).format('$0,0.00');
-};
+export const formatPrice = value => numeral(value).format('$0,0.00');
