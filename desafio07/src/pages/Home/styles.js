@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
+import {darken} from 'polished';
+import colors from '../../styles/colors';
 
 export const Container = styled.View`
-  flex: 1px;
-  padding: 30px;
+  background: ${colors.dark};
 `;
