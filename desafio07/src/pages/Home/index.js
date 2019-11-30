@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
-import {FlatList, Text} from 'react-native';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { FlatList, Text } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
-import {formatPrice} from '../../util/format';
+import { formatPrice } from '../../util/format';
 
 import {
   Container,
@@ -31,17 +33,17 @@ class Home extends Component {
       priceFormatted: formatPrice(product.price),
     }));
 
-    this.setState({products: data});
+    this.setState({ products: data });
   }
 
   handleAddProduct = id => {};
 
-  renderProduct = ({item}) => {
+  renderProduct = ({ item }) => {
     // console.tron.log(item);
 
     return (
       <Product key={item.id}>
-        <ProductImage source={{uri: item.image}} />
+        <ProductImage source={{ uri: item.image }} />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.priceFormatted}</ProductPrice>
         <AddButton onPress={() => this.handleAddProduct(item.id)}>
@@ -56,7 +58,7 @@ class Home extends Component {
   };
 
   render() {
-    const {products} = this.state;
+    const { products } = this.state;
 
     return (
       <Container>
@@ -76,4 +78,4 @@ Home.navigationOptions = {
   title: 'test',
 };
 
-export default Home;
+export default connect()(Home);
